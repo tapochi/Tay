@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Para Kay Tatay</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: #fff;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== INTRO ===== */
+#intro-card {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f172a;
+  z-index: 10;
+  animation: introFade 4s forwards;
+  padding: 5%;
+}
+
+.intro-box {
+  padding: 4% 6%;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 2vw;
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.6rem);
+}
+
+@keyframes introFade {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+/* ===== MAIN ===== */
+#main {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#openBtn {
+  padding: clamp(0.8em, 2vw, 1.2em) clamp(1.5em, 4vw, 2.5em);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  border: none;
+  border-radius: 50px;
+  background: #38bdf8;
+  color: #0f172a;
+  cursor: pointer;
+  opacity: 0;
+  animation: showBtn 1s forwards 4s;
+}
+
+@keyframes showBtn { to { opacity: 1; } }
+
+/* ===== GLASS MESSAGE ===== */
+#glass-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  padding: 5%;
+}
+
+.glass-card {
+  width: 90%;
+  max-width: 720px;
+  max-height: 80vh;      /* Limit height to 80% of viewport */
+  padding: 3%;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  border-radius: 2vw;
+  text-align: center;
+  animation: glassIn 0.8s forwards;
+  overflow-y: auto;      /* Enable vertical scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling effect */
+}
+
+/* Optional: scrollbar styling */
+.glass-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.glass-card::-webkit-scrollbar-thumb {
+  background-color: rgba(56,189,248,0.5);
+  border-radius: 4px;
+}
+
+.glass-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.glass-card p {
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+  margin-bottom: 2vw;
+}
+
+.glass-card button {
+  padding: clamp(0.7em, 1.5vw, 0.8em) clamp(1.5em, 3vw, 2em);
+  border: none;
+  border-radius: 50px;
+  background: #38bdf8;
+  color: #0f172a;
+  cursor: pointer;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+@keyframes glassIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fadeOut {
+  animation: glassOut 0.7s forwards;
+}
+
+@keyframes glassOut {
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+/* ===== IMAGE CARDS ===== */
+.image-card {
+  position: fixed;
+  width: min(80vw, 40vh);
+  opacity: 0;
+  z-index: 5;
+}
+
+.image-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 1.5vw;
+  box-shadow: 0 2.5vh 4.5vh rgba(0,0,0,0.45);
+}
+
+/* Start positions */
+#leftCard { left: -40vw; top: 50%; transform: translateY(-50%); }
+#rightCard { right: -40vw; top: 50%; transform: translateY(-50%); }
+#topCard { top: -40vh; left: 50%; transform: translateX(-50%); }
+#bottomCard { bottom: -40vh; left: 50%; transform: translateX(-50%); }
+#topLeftCard { top: -40vh; left: -40vw; }
+#topRightCard { top: -40vh; right: -40vw; }
+#bottomLeftCard { bottom: -40vh; left: -40vw; }
+#bottomRightCard { bottom: -40vh; right: -40vw; }
+
+/* Image animations */
+.showLeft { animation: leftToCenter 7s ease-in-out forwards; }
+.showRight { animation: rightToCenter 7s ease-in-out forwards; }
+.showTop { animation: topToCenter 7s ease-in-out forwards; }
+.showBottom { animation: bottomToCenter 7s ease-in-out forwards; }
+.showTopLeft { animation: topLeftToCenter 7s ease-in-out forwards; }
+.showTopRight { animation: topRightToCenter 7s ease-in-out forwards; }
+.showBottomLeft { animation: bottomLeftToCenter 7s ease-in-out forwards; }
+.showBottomRight { animation: bottomRightToCenter 7s ease-in-out forwards; }
+
+/* Arrive → stay → fade in center */
+@keyframes leftToCenter {
+  0% { opacity: 0; left: -40vw; }
+  40% { left: 50%; transform: translate(-50%, -50%); opacity: 1; }
+  70% { left: 50%; transform: translate(-50%, -50%); opacity: 1; }
+  100% { left: 50%; transform: translate(-50%, -50%); opacity: 0; }
+}
+@keyframes rightToCenter {
+  0% { opacity: 0; right: -40vw; }
+  40% { right: 50%; transform: translate(50%, -50%); opacity: 1; }
+  70% { right: 50%; transform: translate(50%, -50%); opacity: 1; }
+  100% { right: 50%; transform: translate(50%, -50%); opacity: 0; }
+}
+@keyframes topToCenter {
+  0% { opacity: 0; top: -40vh; }
+  40% { top: 50%; transform: translate(-50%, -50%); opacity: 1; }
+  70% { top: 50%; transform: translate(-50%, -50%); opacity: 1; }
+  100% { top: 50%; transform: translate(-50%, -50%); opacity: 0; }
+}
+@keyframes bottomToCenter {
+  0% { opacity: 0; bottom: -40vh; }
+  40% { bottom: 50%; transform: translate(-50%, 50%); opacity: 1; }
+  70% { bottom: 50%; transform: translate(-50%, 50%); opacity: 1; }
+  100% { bottom: 50%; transform: translate(-50%, 50%); opacity: 0; }
+}
+@keyframes topLeftToCenter {
+  0% { opacity: 0; top: -40vh; left: -40vw; }
+  40% { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; }
+  70% { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; }
+  100% { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; }
+}
+@keyframes topRightToCenter {
+  0% { opacity: 0; top: -40vh; right: -40vw; }
+  40% { top: 50%; right: 50%; transform: translate(50%, -50%); opacity: 1; }
+  70% { top: 50%; right: 50%; transform: translate(50%, -50%); opacity: 1; }
+  100% { top: 50%; right: 50%; transform: translate(50%, -50%); opacity: 0; }
+}
+@keyframes bottomLeftToCenter {
+  0% { opacity: 0; bottom: -40vh; left: -40vw; }
+  40% { bottom: 50%; left: 50%; transform: translate(-50%, 50%); opacity: 1; }
+  70% { bottom: 50%; left: 50%; transform: translate(-50%, 50%); opacity: 1; }
+  100% { bottom: 50%; left: 50%; transform: translate(-50%, 50%); opacity: 0; }
+}
+@keyframes bottomRightToCenter {
+  0% { opacity: 0; bottom: -40vh; right: -40vw; }
+  40% { bottom: 50%; right: 50%; transform: translate(50%, 50%); opacity: 1; }
+  70% { bottom: 50%; right: 50%; transform: translate(50%, 50%); opacity: 1; }
+  100% { bottom: 50%; right: 50%; transform: translate(50%, 50%); opacity: 0; }
+}
+
+/* ===== VIDEO ===== */
+.video-card {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s;
+  z-index: 30;
+  padding: 5%;
+}
+
+.video-card video {
+  width: 100%;
+  max-width: 85vw;
+  max-height: 85vh;
+  border-radius: 2vw;
+  object-fit: contain;
+}
+
+/* ===== FINAL SCREEN ===== */
+#final-screen {
+  position: fixed;
+  inset: 0;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s;
+  z-index: 40;
+  padding: 5%;
+}
+
+#final-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(56,189,248,0.18), transparent 60%);
+}
+
+#final-screen h1 {
+  font-size: clamp(1.5rem, 3vw, 1.8rem);
+  line-height: 1.4;
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.03); opacity: 1; }
+}
+
+#replayBtn {
+  margin-top: 2vw;
+  padding: clamp(0.7em, 1.5vw, 0.8em) clamp(1.5em, 3vw, 2em);
+  border-radius: 50px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  cursor: pointer;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 600px) {
+  .intro-box { font-size: 1.2rem; padding: 8vw; }
+  #openBtn { font-size: 1rem; padding: 1em 2em; }
+  .glass-card p { font-size: 0.85rem; }
+  .glass-card button { font-size: 0.85rem; padding: 0.6em 1.5em; }
+  #final-screen h1 { font-size: 1.3rem; }
+  #replayBtn { font-size: 0.85rem; padding: 0.6em 1.5em; }
+}
+@media (max-width: 400px) {
+  .intro-box { font-size: 1rem; padding: 10vw; }
+  #openBtn { font-size: 0.9rem; padding: 0.8em 1.5em; }
+  .glass-card p { font-size: 0.8rem; }
+  .glass-card button { font-size: 0.8rem; padding: 0.5em 1.2em; }
+  #final-screen h1 { font-size: 1.1rem; }
+  #replayBtn { font-size: 0.8rem; padding: 0.5em 1.2em; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro-card">
+  <div class="intro-box">
+    For Alberto Padinit<br><strong>AKA Tatay Berts</strong>
+  </div>
+</div>
+
+<div id="main">
+  <button id="openBtn">Tatay berting</button>
+</div>
+
+<div id="glass-overlay">
+  <div class="glass-card" id="glassCard">
+    <p>
+      
+      Gusto lang namo magpasalamat nimo karon sa tanan nimong gibuhat para sa simbahan ug para sa amoa mga kabantan-onan ug usa ka youth sa atong simbahan. Bisan usahay dili kompleto ang mga youth o walay kauban, pirmi gihapon ka nag-alagad ug nag-atiman dinhi sa simbahan. Makita gyud namo kung unsa ka ka-dedicado sa imong panahon, kusog, ug kasingkasing para sa pag pangalagad sa Ginoo.
+
+Salamat pud sa imong giya ug tambag sa among mga youth. Daghan kaayo mi natun-an gikan ka nimo—unsaon pag-alagad sa Ginoo, pagmatinud-anon sa trabaho, ug pagpakabana sa uban. Usahay kapoy, usahay maluya, pero ang imong pasensya ug suporta naghatag kanamo og inspirasyon nga magpadayon sa pag-alagad bisan gamay ra ang among kapasidad.
+
+Ikaw usa ka ehemplo kanamo sa pagpakabana ug pagkamatinud-anon. Nakita namo nga dili lang kay sa simbahan ka nag-alagad, kundi sa among kinabuhi usab, pinaagi sa imong pagtabang ug paggiya. Bisan wala mi kanunay sa simbahan, nagpadayon gihapon ka sa imong mga buluhaton, ug kini nakahatag kanamo og respeto ug pasalamat sa imong dedikasyon.
+
+Tatay, proud kaayo mi nga ikaw among Tatay sa simbahan. Daghang salamat sa imong panahon, gugma, ug pasensya. Hinaot padayon ka nga panalanginan sa Ginoo ug magpadayon ka sa imong pagka-inspirasyon sa tanang youth ug kabantan o-nan sa simbahan.
+
+Uban sa dakong pasalamat ug paghigugma,
+Ayon sa mga Youth dinhi sa Simbahan sa Iglesya Filipinista
+Salamat Tatay Berting.
+    </p>
+    <button id="closeGlass">Salamat</button>
+  </div>
+</div>
+
+<div class="image-card" id="leftCard"><img src="tatay3.jpg"></div>
+<div class="image-card" id="rightCard"><img src="tatay2.jpg"></div>
+<div class="image-card" id="topCard"><img src="tatay4.jpg"></div>
+<div class="image-card" id="bottomCard"><img src="tatay7.jpg"></div>
+<div class="image-card" id="topLeftCard"><img src="tatay8.jpg"></div>
+<div class="image-card" id="topRightCard"><img src="tatay5.jpg"></div>
+<div class="image-card" id="bottomLeftCard"><img src="tatay6.jpg"></div>
+<div class="image-card" id="bottomRightCard"><img src="tatay1.jpg"></div>
+
+<div class="video-card" id="videoCard">
+  <video id="video" src="tatay_video.mp4" controls muted></video>
+</div>
+
+<div id="final-screen">
+  <div>
+    <h1>WE LOVE YOU ,Tatay.<br>Salamat sa tanan.</h1>
+    
+  </div>
+</div>
+
+<audio id="audio" src="tatay.mp3"></audio>
+
+<script>
+const CARD_DURATION = 7000;
+const GAP = 700;
+
+const openBtn = document.getElementById("openBtn");
+const overlay = document.getElementById("glass-overlay");
+const glass = document.getElementById("glassCard");
+const closeGlass = document.getElementById("closeGlass");
+const audio = document.getElementById("audio");
+
+const cards = [
+  leftCard,rightCard,topCard,bottomCard,
+  topLeftCard,topRightCard,bottomLeftCard,bottomRightCard
+];
+
+const animations = [
+  "showLeft","showRight","showTop","showBottom",
+  "showTopLeft","showTopRight","showBottomLeft","showBottomRight"
+];
+
+openBtn.onclick = () => {
+  openBtn.disabled = true;
+  overlay.style.display = "flex";
+  audio.volume = 1;
+  audio.play().catch(()=>{});
+};
+
+closeGlass.onclick = () => {
+  glass.classList.add("fadeOut");
+
+  setTimeout(() => {
+    overlay.style.display = "none";
+
+    cards.forEach((card, i) => {
+      card.className = "image-card";
+      setTimeout(() => card.classList.add(animations[i]), i * (CARD_DURATION + GAP));
+    });
+
+    const totalTime = cards.length * (CARD_DURATION + GAP);
+    setTimeout(showVideo, totalTime);
+  }, 700);
+};
+
+function showVideo() {
+  fadeOutAudio();
+  videoCard.style.opacity = 1;
+  videoCard.style.pointerEvents = "auto";
+  video.play().catch(()=>{});
+
+  setTimeout(() => {
+    videoCard.onclick = () => {
+      video.pause();
+      videoCard.style.opacity = 0;
+      videoCard.style.pointerEvents = "none";
+      showFinal();
+    };
+  }, 3000);
+}
+
+function fadeOutAudio() {
+  let steps = 25;
+  let step = audio.volume / steps;
+  let i = setInterval(() => {
+    audio.volume -= step;
+    if (audio.volume <= 0) {
+      audio.pause();
+      clearInterval(i);
+    }
+  }, 120);
+}
+
+function showFinal() {
+  const final = document.getElementById("final-screen");
+  final.style.opacity = 1;
+  final.style.pointerEvents = "auto";
+}
+
+document.getElementById("replayBtn").onclick = () => location.reload();
+</script>
+
+</body>
+</html>
